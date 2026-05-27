@@ -1,7 +1,5 @@
 # Knowledge Graph-Enhanced Vision-Language Model for Remote Sensing
 
-**Bachelor's Thesis Project — IIT Bombay, Aug–Dec 2024**
-
 Integrates dual knowledge graphs into APPLeNet to improve few-shot classification of remote sensing images by enhancing cross-modal alignment and vision-language learning.
 
 ---
