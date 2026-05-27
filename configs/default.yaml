@@ -1,0 +1,71 @@
+# ── KG-VLM Remote Sensing · Default Configuration ──────────────────────────
+
+# Dataset
+dataset: resisc45           # ucm | aid | resisc45 | patternnet
+data_root: ./datasets
+n_shot: 16                  # 1 | 2 | 4 | 8 | 16
+n_query: 4                  # query images per class per episode
+image_size: 224
+
+# CLIP backbone
+clip_model: ViT-B/16        # ViT-B/16 | ViT-L/14 | RN50
+pretrained: openai          # openai | laion2b_s34b_b79k
+
+# APPLeNet prompt settings
+n_ctx: 16                   # number of learnable context tokens
+ctx_init: ""                # "" = random init; or "a photo of a" etc.
+prompt_depth: 9             # depth of vision prompt injection (1=shallow)
+class_token_position: end   # end | middle | front
+
+# Knowledge graph settings
+use_semantic_kg: true
+use_visual_kg: true
+
+semantic_kg:
+  source: wordnet           # wordnet | conceptnet | combined
+  embedding_dim: 300        # word embedding dim for node features
+  n_hops: 2                 # graph neighbourhood hops
+  top_k_edges: 10           # max edges per node
+
+visual_kg:
+  embedding_dim: 512        # visual feature dim (from CLIP)
+  cooccur_threshold: 0.3    # min co-occurrence score to add edge
+  n_regions: 196            # ViT patch count (14×14)
+
+# GCN encoder
+gcn:
+  hidden_dim: 512
+  out_dim: 512
+  n_layers: 2
+  dropout: 0.1
+  use_gat: false            # false=GCN, true=GAT
+  gat_heads: 4
+
+# Fusion
+fusion:
+  method: add               # add | concat | cross_attention
+  fusion_dim: 512
+
+# Training
+epochs: 50
+batch_size: 32
+optimizer: sgd              # sgd | adamw
+lr: 2.0e-3
+weight_decay: 5.0e-4
+momentum: 0.9
+scheduler: cosine           # cosine | step
+warmup_epochs: 5
+
+# Reproducibility
+seed: 42
+
+# Logging & checkpointing
+log_dir: ./logs
+checkpoint_dir: ./checkpoints
+log_interval: 10            # steps between log prints
+eval_interval: 5            # epochs between evaluations
+save_best: true
+
+# Hardware
+device: cuda                # cuda | cpu | mps
+num_workers: 4
