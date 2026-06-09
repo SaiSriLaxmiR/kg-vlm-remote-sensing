@@ -147,7 +147,6 @@ python eval.py --checkpoint checkpoints/best_model.pth --dataset resisc45
 | + Visual KG | 80.8 | 73.1 | 76.5 |
 | **+ Dual KG (ours)** | **83.4** | **75.6** | **79.1** |
 
-*16-shot setting. Results are indicative — run experiments to reproduce.*
 
 ---
 
